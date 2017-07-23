@@ -11,7 +11,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Zebble.Plugin</RootNamespace>
-    <AssemblyName>Zebble.Plugin.Slider.UWP</AssemblyName>
+    <AssemblyName>Zebble.Slider.UWP</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>

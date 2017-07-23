@@ -2,13 +2,13 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Zebble.Plugin.Slider</id>
-    <version>1.0.0</version>
+    <version>4.2.192</version>
     <title> Slider for Zebble for Xamarin</title>
-    <description>{...} plugin for Zebble for Xamarin.</description>    
-    <iconUrl>https://raw.githubusercontent.com/{MyUserName}/{MyRepo}/.../Shared/Icon.png</iconUrl>
-    <authors>Your company...</authors>
-    <owners>Your company...</owners>
-    <copyright>Copyright ©2017 | Your company...</copyright>
+    <description>An interactive control allowing the users to select a valur or a range of values.</description>    
+    <iconUrl>https://raw.githubusercontent.com/Geeksltd/Zebble.Slider/master/Shared/Icon.png</iconUrl>
+    <authors>Mobile App Technologies Ltd</authors>
+    <owners>Mobile App Technologies Ltd</owners>
+    <copyright>Copyright ©2017 | Mobile App Technologies Ltd</copyright>
 
     <dependencies>
       <group targetFramework="MonoAndroid">        
@@ -21,8 +21,8 @@
 
   </metadata>
   <files>
-    <file src="..\lib\Zebble.Plugin.Slider.iOS.*" target="lib\Xamarin.iOS10\" />
-    <file src="..\lib\Zebble.Plugin.Slider.Android.*" target="lib\MonoAndroid10\" />
-    <file src="..\lib\Zebble.Plugin.Slider.UWP.*" target="lib\UAP10\" />
+    <file src="..\lib\Zebble.Slider.iOS.*" target="lib\Xamarin.iOS10\" />
+    <file src="..\lib\Zebble.Slider.Android.*" target="lib\MonoAndroid10\" />
+    <file src="..\lib\Zebble.Slider.UWP.*" target="lib\UAP10\" />
   </files>
 </package>

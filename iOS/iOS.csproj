@@ -10,7 +10,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Zebble.Plugin</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>Zebble.Plugin.Slider.iOS</AssemblyName>
+    <AssemblyName>Zebble.Slider.iOS</AssemblyName>
     <OutputPath>..\lib\</OutputPath>
     <DefineConstants>__UNIFIED__;__MOBILE__;__IOS__;IOS;</DefineConstants>
   </PropertyGroup>

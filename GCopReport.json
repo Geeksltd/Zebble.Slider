@@ -1,0 +1,39 @@
+{
+  "Items": [
+    {
+      "Analyzer": "UnusedMethodsAnalyzer",
+      "OccurrenceCount": 33,
+      "Exceptions": null,
+      "SentToServer": true,
+      "InstallationName": "DESKTOP-LLCTIMB"
+    },
+    {
+      "Analyzer": "MeaningfulNameForVariablesAnalyzer",
+      "OccurrenceCount": 13,
+      "Exceptions": null,
+      "SentToServer": true,
+      "InstallationName": "DESKTOP-LLCTIMB"
+    },
+    {
+      "Analyzer": "ExceptAnalyzer",
+      "OccurrenceCount": 1,
+      "Exceptions": null,
+      "SentToServer": true,
+      "InstallationName": "DESKTOP-LLCTIMB"
+    },
+    {
+      "Analyzer": "LacksAnalyzer",
+      "OccurrenceCount": 1,
+      "Exceptions": null,
+      "SentToServer": true,
+      "InstallationName": "DESKTOP-LLCTIMB"
+    },
+    {
+      "Analyzer": "LongMethodAnalyzer",
+      "OccurrenceCount": 1,
+      "Exceptions": null,
+      "SentToServer": true,
+      "InstallationName": "DESKTOP-LLCTIMB"
+    }
+  ]
+}

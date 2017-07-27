@@ -258,7 +258,17 @@
         {
             ActiveHandle = handle;
             ActiveCaption.Text(CaptionText(value));
-            if (ActiveHandle == UpHandle) upValue = value; else lowValue = value;
+            if (ActiveHandle == UpHandle)
+            {
+                upValue = value;
+                UpValueChanged.Raise();
+            }
+            else
+            {
+                lowValue = value;
+                if (!IsRange) ValueChanged.Raise();
+                else LowValueChanged.Raise();
+            }
             MoveElements(ActiveHandle, ActiveCaption, ValueToPoint(value));
         }
 

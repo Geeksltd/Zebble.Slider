@@ -20,8 +20,8 @@
         public readonly Canvas SelectedBar = new Canvas { Id = "SelectedBar" };
         public readonly Canvas Handle = new Canvas { Id = "Handle" };
         public readonly Canvas UpHandle = new Canvas { Id = "UpHandle" };
-        public readonly TextView Caption = new TextView { Id = "Caption", AutoSizeWidth = true };
-        public readonly TextView UpCaption = new TextView { Id = "UpCaption", AutoSizeWidth = true };
+        public readonly TextView Caption = new TextView { Id = "Caption" };
+        public readonly TextView UpCaption = new TextView { Id = "UpCaption" };
 
         public Slider()
         {

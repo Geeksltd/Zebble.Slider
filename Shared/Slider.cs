@@ -77,8 +77,7 @@
 
                 if (IsRange) lowValue = Math.Min(lowValue.Value, UpValue);
 
-                if (IsAlreadyRendered())
-                    LoadValue(Handle, lowValue.Value);
+                if (IsRendered()) LoadValue(Handle, lowValue.Value);
 
                 if (!IsRange) ValueChanged.Raise();
                 else LowValueChanged.Raise();
@@ -94,8 +93,7 @@
 
                 upValue = Math.Max(upValue.Value, LowValue);
 
-                if (IsAlreadyRendered())
-                    LoadValue(UpHandle, upValue.Value);
+                if (IsRendered()) LoadValue(UpHandle, upValue.Value);
 
                 UpValueChanged.Raise();
             }

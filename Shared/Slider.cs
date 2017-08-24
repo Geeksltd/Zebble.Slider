@@ -20,8 +20,8 @@
         public readonly Canvas SelectedBar = new Canvas { Id = "SelectedBar" };
         public readonly Canvas Handle = new Canvas { Id = "Handle" };
         public readonly Canvas UpHandle = new Canvas { Id = "UpHandle" };
-        public readonly TextView Caption = new TextView { Id = "Caption" };
-        public readonly TextView UpCaption = new TextView { Id = "UpCaption" };
+        public readonly TextView Caption = new TextView { Id = "Caption" }.Absolute().Width(30);
+        public readonly TextView UpCaption = new TextView { Id = "UpCaption" }.Absolute().Width(30);
 
         public Slider()
         {
@@ -203,6 +203,7 @@
 
         void MoveElements(View handle, TextView caption, float point)
         {
+            ActiveCaption.Width(ActiveCaption.Text.Length * ActiveCaption.Font.EffectiveSize);
             if (IsRange)
             {
                 if (handle == Handle && point > UpHandle.ActualX + Handle.ActualWidth / 2)
@@ -267,6 +268,7 @@
                 if (!IsRange) ValueChanged.Raise();
                 else LowValueChanged.Raise();
             }
+
             MoveElements(ActiveHandle, ActiveCaption, ValueToPoint(value));
         }
 

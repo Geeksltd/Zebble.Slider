@@ -30,7 +30,7 @@
     },
     {
       "Analyzer": "LongMethodAnalyzer",
-      "OccurrenceCount": 1,
+      "OccurrenceCount": 2,
       "Exceptions": null,
       "SentToServer": true,
       "InstallationName": "DESKTOP-LLCTIMB"

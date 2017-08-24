@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Zebble.Slider</id>
-    <version>4.2.211</version>
+    <version>4.2.212</version>
     <title> Slider for Zebble (Xamarin)</title>
     <description>An interactive control allowing the users to select a valur or a range of values.</description>
     <iconUrl>https://raw.githubusercontent.com/Geeksltd/Zebble.Slider/master/Shared/Icon.png</iconUrl>

@@ -1,4 +1,4 @@
-[logo]: https://raw.githubusercontent.com/Geeksltd/Zebble.Slider/master/Shared/NuGet/Icon.png "Zebble.Slider"
+[logo]: https://raw.githubusercontent.com/Geeksltd/Zebble.Slider/master/Shared/Icon.png "Zebble.Slider"
 
 
 ## Zebble.Slider

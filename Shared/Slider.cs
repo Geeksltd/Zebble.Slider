@@ -11,6 +11,7 @@
         View ActiveHandle;
         bool IsProcessingPan, Animating;
         TouchEventArgs LastPanEnd;
+        Point CurrentVelocity;
 
         public readonly AsyncEvent ValueChanged = new AsyncEvent();
         public readonly AsyncEvent LowValueChanged = new AsyncEvent();
@@ -171,22 +172,26 @@
             return Task.CompletedTask;
         }
 
-        Task Panned(PannedEventArgs args)
+        async Task Panned(PannedEventArgs args)
         {
             Animating = false;
             var start = args.From;
             var end = args.To;
+            CurrentVelocity = args.Velocity;
+
+            if (CheckDirection() == null) return;
 
             LastPanEnd = new TouchEventArgs(this, end, args.Touches);
 
-            if (IsProcessingPan) return Task.CompletedTask;
+            if (IsProcessingPan) return;
             IsProcessingPan = true;
 
             ActiveHandle = Handle;
-            end.X = end.X.LimitWithin(Padding.Left() + ActiveHandle.ActualWidth / 2, RangeBar.ActualWidth + Padding.Left());
 
             if (IsRange)
             {
+                end.X = end.X.LimitWithin(Padding.Left() + ActiveHandle.ActualWidth / 2, RangeBar.ActualWidth + Padding.Left());
+
                 var distanceFromHandle = Math.Abs(Handle.ActualX + Handle.ActualWidth / 2 - start.X);
                 var distanceFromUpHandle = Math.Abs(UpHandle.ActualX + UpHandle.ActualWidth / 2 - start.X);
 
@@ -194,53 +199,83 @@
                     distanceFromHandle > distanceFromUpHandle) ActiveHandle = UpHandle;
             }
 
-            ActiveCaption.Text(CaptionText(PointToValue(end.X)));
-            MoveElements(ActiveHandle, ActiveCaption, end.X);
+            var point = (ActiveHandle.X.CurrentValue - (start.X - end.X)).LimitWithin(Padding.Left() + ActiveHandle.ActualWidth / 2, RangeBar.ActualWidth + Padding.Left());
+            MoveElements(ActiveHandle, ActiveCaption, point, end.X);
             IsProcessingPan = false;
-
-            return Task.CompletedTask;
         }
 
-        void MoveElements(View handle, TextView caption, float point)
+        Direction? CheckDirection()
         {
+            Direction? result;
+            if (CurrentVelocity.X > 0) result = Direction.Right;
+            else if (CurrentVelocity.X < 0) result = Direction.Left;
+            else result = null;
+
+            return result;
+        }
+
+        bool ShouldHandlerMove(float point)
+        {
+            return point <= -(Handle.ActualWidth / 2) || point >= ActualWidth - Handle.ActualWidth / 2;
+        }
+
+        void MoveElements(View handle, TextView caption, float point, float actualPoint)
+        {
+            var differences = handle.X.CurrentValue - point;
+            if (differences == 0) return;
+
+            var isArrangedProcess = (handle.X.CurrentValue == 0 && differences == actualPoint);
+
             ActiveCaption.Width(ActiveCaption.Text.Length * ActiveCaption.Font.EffectiveSize);
+
+            if (isArrangedProcess || Animating) point = actualPoint;
+
             if (IsRange)
             {
                 if (handle == Handle && point > UpHandle.ActualX + Handle.ActualWidth / 2)
                 {
-                    MoveElements(UpHandle, UpCaption, point);
+                    MoveElements(UpHandle, UpCaption, point, actualPoint);
                     return;
                 }
 
                 if (handle == UpHandle && point < Handle.ActualX + Handle.ActualWidth / 2)
                 {
-                    MoveElements(Handle, Caption, point);
+                    MoveElements(Handle, Caption, point, actualPoint);
                     return;
                 }
             }
 
+            if (!isArrangedProcess && ShouldHandlerMove(point)) return;
+
             point = Math.Min(point, RangeBar.ActualWidth + Padding.Left() - Handle.ActualWidth / 2);
             point = Math.Max(point, Handle.ActualWidth / 2 - Padding.Left());
 
-            var handleX = point - handle.ActualWidth / 2;
-
-            var captionX = point - caption.ActualWidth / 2;
-            captionX = Math.Min(captionX, ActualWidth - caption.ActualWidth);
-            captionX = Math.Max(captionX, 0);
-
             if (Animating)
             {
+                var handleX = point - handle.ActualWidth / 2;
+
+                var captionX = point - caption.ActualWidth / 2;
+                captionX = Math.Min(captionX, ActualWidth - caption.ActualWidth);
+                captionX = Math.Max(captionX, 0);
+                captionX = Math.Min(handleX, captionX);
+
                 handle.Animate(x => x.X(handleX));
                 caption.Animate(x => x.X(captionX));
             }
             else
             {
-                handle.X(handleX);
-                caption.X(captionX);
+                var direction = CheckDirection();
+                if ((direction == Direction.Left && (point > handle.X.CurrentValue && point > Handle.ActualWidth / 2))
+                    || (direction == Direction.Right && (point < handle.X.CurrentValue && point < ActualWidth - Handle.ActualWidth / 2))) return;
+                
+                handle.X(point);
+                caption.X(point);
             }
 
-            if (handle == Handle) SyncSelectedBar(handleX, UpHandle.ActualX);
-            else SyncSelectedBar(Handle.ActualX, handleX);
+            ActiveCaption.Text(CaptionText(PointToValue(point)));
+
+            if (handle == Handle) SyncSelectedBar(point, UpHandle.ActualX);
+            else SyncSelectedBar(Handle.ActualX, point);
         }
 
         double GetPixelsPerStep()
@@ -269,7 +304,7 @@
                 else LowValueChanged.Raise();
             }
 
-            MoveElements(ActiveHandle, ActiveCaption, ValueToPoint(value));
+            MoveElements(ActiveHandle, ActiveCaption, ValueToPoint(value), ValueToPoint(value));
         }
 
         float ValueToPoint(double value)

@@ -2,14 +2,14 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Zebble.Slider</id>
-    <version>4.2.214</version>
+    <version>4.2.217</version>
     <title> Slider for Zebble (Xamarin)</title>
     <description>An interactive control allowing the users to select a valur or a range of values.</description>
     <iconUrl>https://raw.githubusercontent.com/Geeksltd/Zebble.Slider/master/Shared/Icon.png</iconUrl>
     <projectUrl>https://github.com/Geeksltd/Zebble.Slider</projectUrl>
     <authors>Geeks Ltd</authors>
     <owners>Geeks Ltd</owners>
-    <copyright>Copyright © 2018 Geeks Ltd - All rights reserved.</copyright>
+    <copyright>Copyright © 2019 Geeks Ltd - All rights reserved.</copyright>
   </metadata>
   <files>
     <file src="..\..\lib\Zebble.Slider.iOS.*" target="lib\Xamarin.iOS10\" />
@@ -17,7 +17,6 @@
     <file src="..\..\lib\bin\ARM\Release\Zebble.Slider.UWP.*" target="runtimes\win10-arm\lib\uap10.0" />
     <file src="..\..\lib\bin\x64\Release\Zebble.Slider.UWP.*" target="runtimes\win10-x64\lib\uap10.0" />
     <file src="..\..\lib\bin\x86\Release\Zebble.Slider.UWP.*" target="runtimes\win10-x86\lib\uap10.0" />
-
     <file src="..\..\lib\bin\Release\Zebble.Slider.UWP.*" target="ref\uap10.0" />
   </files>
 </package>

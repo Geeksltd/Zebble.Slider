@@ -34,7 +34,7 @@
 
             Tapped.Handle(UserTapped);
             PanFinished.Handle(() => UserTapped(LastPanEnd));
-            Panning.Handle(Panned);
+            Panning.Handle(OnPanning);
         }
 
         public Slider(bool isRange) : this() => IsRange = isRange;
@@ -172,18 +172,18 @@
             return Task.CompletedTask;
         }
 
-        async Task Panned(PannedEventArgs args)
+        Task OnPanning(PannedEventArgs args)
         {
             Animating = false;
             var start = args.From;
             var end = args.To;
             CurrentVelocity = args.Velocity;
 
-            if (CheckDirection() == null) return;
+            if (CheckDirection() == null) return Task.CompletedTask;
 
             LastPanEnd = new TouchEventArgs(this, end, args.Touches);
 
-            if (IsProcessingPan) return;
+            if (IsProcessingPan) return Task.CompletedTask;
             IsProcessingPan = true;
 
             ActiveHandle = Handle;
@@ -202,6 +202,8 @@
             var point = (ActiveHandle.X.CurrentValue - (start.X - end.X)).LimitWithin(Padding.Left() + ActiveHandle.ActualWidth / 2, RangeBar.ActualWidth + Padding.Left());
             MoveElements(ActiveHandle, ActiveCaption, point, end.X);
             IsProcessingPan = false;
+
+            return Task.CompletedTask;
         }
 
         Direction? CheckDirection()
@@ -222,7 +224,6 @@
         void MoveElements(View handle, TextView caption, float point, float actualPoint)
         {
             var differences = handle.X.CurrentValue - point;
-            if (differences == 0) return;
 
             var isArrangedProcess = (handle.X.CurrentValue == 0 && differences == actualPoint);
 
@@ -265,11 +266,15 @@
             else
             {
                 var direction = CheckDirection();
-                if ((direction == Direction.Left && (point > handle.X.CurrentValue && point > Handle.ActualWidth / 2))
-                    || (direction == Direction.Right && (point < handle.X.CurrentValue && point < ActualWidth - Handle.ActualWidth / 2))) return;
-                
-                handle.X(point);
-                caption.X(point);
+
+                var handleX = point;
+                if (!IsProcessingPan) handleX = point - handle.ActualWidth / 2;
+
+                if ((direction == Direction.Left && (handleX > handle.X.CurrentValue && handleX > Handle.ActualWidth / 2))
+                || (direction == Direction.Right && (handleX < handle.X.CurrentValue && handleX < ActualWidth - Handle.ActualWidth / 2))) return;
+
+                handle.X(handleX);
+                caption.X(handleX);
             }
 
             ActiveCaption.Text(CaptionText(PointToValue(point)));

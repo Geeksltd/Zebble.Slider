@@ -62,6 +62,14 @@ private void ValueChanged() { /*Do something here.*/ }
 | MaxValue            | double           | x       | x   | x       |
 | Step            | double           | x       | x   | x       |
 
+By default, the caption text that it shows above the handle will be the same as the value. To customise that you can set the CaptionText property to a method that you define. For example:
+```xml
+<Slider ... CaptionText="@GetSliderText" />
+```
+```csharp
+static string GetSliderText(doublt value) => value + " miles";
+```
+
 
 ### Events
 | Event             | Type                                          | Android | iOS | Windows |

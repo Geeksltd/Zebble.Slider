@@ -54,7 +54,7 @@ private void ValueChanged() { /*Do something here.*/ }
 | Property     | Type         | Android | iOS | Windows |
 | :----------- | :----------- | :------ | :-- | :------ |
 | IsRange            | bool           | x       | x   | x       |
-| CaptionText            | string           | x       | x   | x       |
+| CaptionText            | Func<double, string>           | x       | x   | x       |
 | Value            | double           | x       | x   | x       |
 | LowValue            | double           | x       | x   | x       |
 | UpValue            | double           | x       | x   | x       |

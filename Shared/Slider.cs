@@ -15,6 +15,7 @@
         Point CurrentVelocity;
 
         public readonly AsyncEvent ValueChanged = new AsyncEvent();
+        public readonly AsyncEvent ValueChangedByUser = new AsyncEvent();
         public readonly AsyncEvent LowValueChanged = new AsyncEvent();
         public readonly AsyncEvent UpValueChanged = new AsyncEvent();
 
@@ -164,6 +165,7 @@
                 }
 
                 LoadValue(ActiveHandle, PointToValue(args.Point.X));
+                ValueChangedByUser.Raise();
             }
             finally
             {
